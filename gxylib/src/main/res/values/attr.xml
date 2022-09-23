@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--    自定义KeyValueView     -->
+    <declare-styleable name="c_applib_key_value_icon_view">
+        <!-- left_tv -->
+        <attr name="left_tv_text" format="string|reference" />
+        <attr name="left_tv_color" format="color" />
+        <attr name="left_tv_size" format="dimension" />
+        <attr name="left_tv_visibility" format="enum">
+            <enum name="visible" value="0" />
+            <enum name="invisible" value="4" />
+            <enum name="gone" value="8" />
+        </attr>
+        <!-- right_tv -->
+        <attr name="right_tv_text" format="string|reference" />
+        <attr name="right_tv_color" format="color" />
+        <attr name="right_tv_size" format="dimension" />
+        <attr name="right_tv_visibility" format="enum">
+            <enum name="visible" value="0" />
+            <enum name="invisible" value="4" />
+            <enum name="gone" value="8" />
+        </attr>
+        <!-- left_img -->
+        <attr name="left_img_visibility" format="enum">
+            <enum name="visible" value="0" />
+            <enum name="invisible" value="4" />
+            <enum name="gone" value="8" />
+        </attr>
+        <attr name="left_img_src" format="reference" />
+        <!-- right_img -->
+        <attr name="right_img_visibility" format="enum">
+            <enum name="visible" value="0" />
+            <enum name="invisible" value="4" />
+            <enum name="gone" value="8" />
+        </attr>
+        <attr name="right_img_src" format="reference" />
+        <!-- right_icon -->
+        <attr name="right_icon_visibility" format="enum">
+            <enum name="visible" value="0" />
+            <enum name="invisible" value="4" />
+            <enum name="gone" value="8" />
+        </attr>
+        <attr name="right_icon_src" format="reference" />
+        <!-- v_line -->
+        <attr name="v_line_color" format="color" />
+        <attr name="v_line_visible" format="enum">
+            <enum name="visible" value="0" />
+            <enum name="invisible" value="4" />
+            <enum name="gone" value="8" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="c_applib_password_view">
+        <attr name="hint_text" format="string|reference" />
+    </declare-styleable>
+</resources>

@@ -1,0 +1,33 @@
+<resources>
+    <style name="Custom_Progress" parent="@android:style/Theme.Dialog">
+        <!--是否去除边框-->
+        <item name="android:windowFrame">@null</item>
+        <!--是否浮现在activity之上-->
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <!--        <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>-->
+        <!--背景颜色及和透明程度-->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!--是否去除标题 -->
+        <item name="android:windowNoTitle">true</item>
+        <!--是否允许背景变暗-->
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+    <style name="key_value_text">
+        <item name="android:textSize">16sp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="key_value_img">
+        <item name="android:layout_width">30dp</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:padding">6dp</item>
+    </style>
+
+    <style name="key_value_rig_icon">
+        <item name="android:layout_width">15dp</item>
+        <item name="android:layout_height">15dp</item>
+    </style>
+</resources>

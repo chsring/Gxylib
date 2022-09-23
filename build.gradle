@@ -1,8 +1,37 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
-plugins {
-    id 'com.android.application' version '7.2.2' apply false
-    id 'com.android.library' version '7.2.2' apply false
-    id 'org.jetbrains.kotlin.android' version '1.7.10' apply false
+buildscript {
+    def dir = new File("config")
+    if (!dir.exists()) {
+        println("gradle deal git clone conifg")
+        def rmUpdate = "git clone -b master https://github.com/chsring/config.git"
+        def procUp = rmUpdate.execute()
+        procUp.waitFor()
+        println("gradle deal git clone finish")
+    }
+    repositories {
+        google()
+        maven { url 'https://jitpack.io' }
+        maven { url 'https://repo1.maven.org/maven2/' }
+        maven { url 'https://developer.huawei.com/repo/' }
+        mavenCentral()
+        maven { url 'https://maven.aliyun.com/repository/releases' }
+
+    }
+    dependencies {
+        classpath "com.android.tools.build:gradle:7.0.4"
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.10'
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        maven { url 'https://jitpack.io' }
+        maven { url 'https://repo1.maven.org/maven2/' }
+        maven { url 'https://developer.huawei.com/repo/' }
+        mavenCentral()
+        maven { url 'https://maven.aliyun.com/repository/releases' }
+    }
 }
 
 task clean(type: Delete) {
