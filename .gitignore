@@ -1,0 +1,48 @@
+*.iml
+.gradle
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+.idea/
+gradlew
+gradlew.bat
+
+# Built application 文件
+*.apk
+*.ap_
+
+# ART/Dalvik VM 文件
+*.dex
+
+# Java class 文件
+*.class
+
+# Gradle files
+.gradle/
+build/
+release/
+
+# 本地配置文件 (sdk path, etc)
+local.properties
+
+# 日志文件
+*.log
+
+# Android Studio导航编辑器临时文件
+.navigation/
+
+# Android Studio captures folder
+captures/
+
+
+/.idea/
