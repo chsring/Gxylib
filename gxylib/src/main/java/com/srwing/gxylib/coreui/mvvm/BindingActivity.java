@@ -1,13 +1,14 @@
 package com.srwing.gxylib.coreui.mvvm;
 
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
+import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 
-import com.srwing.gxylib.coreui.BaseActivity;
+import com.srwing.gxylib.coreui.BaseToolBarActivity;
 
 /**
  * Description: 只带标题的 Activity
@@ -15,31 +16,14 @@ import com.srwing.gxylib.coreui.BaseActivity;
  * Date: 2022/7/28
  * Email: 694177407@qq.com
  */
-public class BindingActivity<VB extends ViewDataBinding> extends BaseActivity {
+public abstract class BindingActivity<VB extends ViewDataBinding> extends BaseToolBarActivity {
     public VB dataBinding;
 
     @Override
-    public void setContentView(int layoutResID) {
-        View view = LayoutInflater.from(this).inflate(layoutResID, null, false);
-        super.setContentView(setInnerContentView(view));
-        dataBinding = DataBindingUtil.bind(view);
-        initView();
-        initData();
-    }
-
-    @Override
-    public void setContentView(View view) {
-        super.setContentView(setInnerContentView(view));
-        dataBinding = DataBindingUtil.bind(view);
-        initView();
-        initData();
-    }
-
-    @Override
-    public void setContentView(View view, ViewGroup.LayoutParams params) {
-        super.setContentView(setInnerContentView(view));
-        dataBinding = DataBindingUtil.bind(view);
-        initView();
-        initData();
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        View childView = LayoutInflater.from(this).inflate(getContentView(), null, false);
+        dataBinding = DataBindingUtil.bind(childView);
+        initViewData();
     }
 }

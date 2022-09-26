@@ -1,7 +1,6 @@
 package com.srwing.gxylib.coreui;
 
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -42,6 +41,7 @@ public class BaseActivity extends RxAppCompatActivity {
      * 将应用层的布局放置到容器中 当前activity中 不调用 就 无标题
      */
     protected View setInnerContentView(View view) {
+        setContentView(R.layout.activity_base_top_bar);
         LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.b_ui_activity_container, null, false);
         includeView = linearLayout.findViewById(R.id.include_title);
         baseLeftLayout = includeView.findViewById(R.id.baseLeftLayout);
@@ -53,19 +53,20 @@ public class BaseActivity extends RxAppCompatActivity {
         backText = includeView.findViewById(R.id.backText);
         backImg = includeView.findViewById(R.id.backImg);
         linearLayout.addView(view, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
-        if (null != baseLeftLayout)
-            if (isBack())
-                baseLeftLayout.setOnClickListener(v -> BaseActivity.this.finish());
         return linearLayout;
     }
 
-    protected boolean isBack() {
-        return true;
+    protected void setContentView(){
+        super.setContentView(R.layout.activity_base_top_bar);
+
     }
 
-    public void setActivityTitle(String title) {
-        if (titleText != null && !TextUtils.isEmpty(title))
-            titleText.setText(title);
+    protected String getActivityTitle() {
+        return "";
+    }
+
+    protected int getTitleLayout() {
+        return -1;
     }
 
     protected void initView() {

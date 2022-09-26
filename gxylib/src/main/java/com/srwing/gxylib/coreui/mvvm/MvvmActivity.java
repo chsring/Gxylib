@@ -1,12 +1,12 @@
 package com.srwing.gxylib.coreui.mvvm;
 
-import android.view.LayoutInflater;
-import android.view.View;
+import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.srwing.gxylib.coreui.BaseActivity;
+import com.srwing.gxylib.coreui.BaseToolBarActivity;
 import com.srwing.gxylib.coreui.BaseViewModel;
 
 import java.lang.reflect.ParameterizedType;
@@ -18,23 +18,18 @@ import java.lang.reflect.Type;
  * Date: 2022/6/23
  * Email: 694177407@qq.com
  */
-public class MvvmActivity<VM extends BaseViewModel> extends BaseActivity implements IMvvmActivity {
+public abstract class MvvmActivity<VM extends BaseViewModel> extends BaseToolBarActivity {
 
     protected VM viewModel;
 
     @Override
-    public int getBRId() {
-        return 0;
-    }
-
-    @Override
-    public void setContentView(int layoutResID) {
-        View childView = LayoutInflater.from(this).inflate(layoutResID, null, false);
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         if (isMvvMMode()) {
             viewModel = obtainViewModel(this);
+            //添加ViewModel的生命周期管理
             getLifecycle().addObserver(viewModel);
         }
-        super.setContentView(setInnerContentView(childView));
     }
 
     /**
@@ -80,4 +75,5 @@ public class MvvmActivity<VM extends BaseViewModel> extends BaseActivity impleme
         }
         super.onDestroy();
     }
+
 }

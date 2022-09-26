@@ -1,15 +1,16 @@
 package com.srwing.gxylib.coreui.mvvm;
 
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
+import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.srwing.gxylib.coreui.BaseActivity;
+import com.srwing.gxylib.coreui.BaseToolBarActivity;
 import com.srwing.gxylib.coreui.BaseViewModel;
 
 import java.lang.reflect.ParameterizedType;
@@ -21,7 +22,7 @@ import java.lang.reflect.Type;
  * Date: 2022/6/23
  * Email: 694177407@qq.com
  */
-public class MvvmBindingActivity<VB extends ViewDataBinding, VM extends BaseViewModel> extends BaseActivity implements IMvvmActivity {
+public abstract class MvvmBindingActivity<VB extends ViewDataBinding, VM extends BaseViewModel> extends BaseToolBarActivity implements IMvvmActivity {
 
     protected VB dataBinding;
     protected VM viewModel;
@@ -32,68 +33,44 @@ public class MvvmBindingActivity<VB extends ViewDataBinding, VM extends BaseView
     }
 
     @Override
-    public void setContentView(int layoutResID) {
-        View childView = LayoutInflater.from(this).inflate(layoutResID, null, false);
-        //默认有标题
-        setContentView(childView, true);
-        initView();
-        initData();
-    }
-
-    @Override
-    public void setContentView(View view) {
-        setContentView(view, true);
-        initView();
-        initData();
-    }
-
-    @Override
-    public void setContentView(View view, ViewGroup.LayoutParams params) {
-        setContentView(view, true);
-        initView();
-        initData();
-    }
-
-    private void setContentView(View view, boolean hasTitle) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        View childView = LayoutInflater.from(this).inflate(getContentView(), null, false);
         if (isMvvMMode()) {
-            dataBinding = DataBindingUtil.bind(view);
+            dataBinding = DataBindingUtil.bind(childView);
             viewModel = obtainViewModel(this);
             int brId = getBRId();
             dataBinding.setVariable(brId, viewModel);
             //添加ViewModel的生命周期管理
             getLifecycle().addObserver(viewModel);
-            if (hasTitle) {
-                //如果有标题
-                super.setContentView(setInnerContentView(view));
-
-            } else {
-                super.setContentView(dataBinding.getRoot());
-            }
-        } else {
-            if (hasTitle) {
-                super.setContentView(setInnerContentView(view));
-            } else {
-                super.setContentView(view);
-            }
         }
+        initViewData();
     }
 
-    /**
-     * 设置没有Title的ContentView
-     *
-     * @param layoutResID
-     */
-    public void setContentViewNoTitle(int layoutResID) {
-        View view = LayoutInflater.from(this).inflate(layoutResID, null, false);
-        setContentView(view, false);
-    }
+//    private void setContentView(View view, boolean hasTitle) {
+//        if (isMvvMMode()) {
+//            dataBinding = DataBindingUtil.bind(view);
+//            viewModel = obtainViewModel(this);
+//            int brId = getBRId();
+//            dataBinding.setVariable(brId, viewModel);
+//            //添加ViewModel的生命周期管理
+//            getLifecycle().addObserver(viewModel);
+//            if (hasTitle) {
+//                //如果有标题
+//                super.setContentView(setInnerContentView(view));
+//
+//            } else {
+//                super.setContentView(dataBinding.getRoot());
+//            }
+//        } else {
+//            if (hasTitle) {
+//                super.setContentView(setInnerContentView(view));
+//            } else {
+//                super.setContentView(view);
+//            }
+//        }
+//    }
 
-    /**
-     * 设置没有Title的ContentView
-     */
-    public void setContentViewNoTitle(View view) {
-        setContentView(view, false);
-    }
 
     /**
      * 判断是否使用了 MVVM MODE

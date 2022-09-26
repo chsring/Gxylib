@@ -7,10 +7,10 @@
     android:orientation="vertical"
     android:padding="@dimen/all_padding_10">
 
-    <pl.droidsonroids.gif.GifImageView
-        android:id="@+id/gifView"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:src="@drawable/logo_loading_label"/>
+<!--    <pl.droidsonroids.gif.GifImageView-->
+<!--        android:id="@+id/gifView"-->
+<!--        android:layout_width="60dp"-->
+<!--        android:layout_height="60dp"-->
+<!--        android:src="@drawable/logo_loading_label"/>-->
 
 </LinearLayout>

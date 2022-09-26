@@ -4,7 +4,6 @@
     android:id="@+id/baseTitleBar"
     android:layout_width="match_parent"
     android:layout_height="40dp"
-    android:background="?themeBackground"
     android:orientation="horizontal">
 
     <LinearLayout
@@ -23,7 +22,6 @@
             android:paddingTop="10dp"
             android:paddingEnd="6dp"
             android:paddingBottom="10dp"
-            android:src="?base_back"
             android:visibility="visible" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -32,7 +30,6 @@
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:paddingStart="16dp"
-            android:textColor="?textColor"
             android:textSize="14sp"
             android:visibility="gone" />
 
@@ -44,7 +41,6 @@
             android:paddingTop="10dp"
             android:paddingEnd="6dp"
             android:paddingBottom="10dp"
-            android:src="?home_camera"
             android:visibility="gone" />
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -64,8 +60,6 @@
             android:gravity="center_vertical"
             android:paddingStart="6dp"
             android:paddingEnd="6dp"
-            android:text="@string/calculationAmount"
-            android:textColor="?textColor"
             android:textSize="14sp"
             android:visibility="gone" />
 
@@ -75,7 +69,6 @@
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:paddingEnd="6dp"
-            android:textColor="?textColor"
             android:textSize="14sp"
             android:typeface="monospace"
             android:visibility="gone" />
@@ -90,7 +83,6 @@
         android:gravity="center"
         android:maxLines="1"
         android:text="标题"
-        android:textColor="?textColor"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -114,8 +106,6 @@
             android:layout_width="60dp"
             android:layout_height="30dp"
             android:gravity="center"
-            android:text="@string/login"
-            android:textColor="?textColor"
             android:textSize="14sp"
             android:visibility="gone" />
 
@@ -144,13 +134,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:includeFontPadding="false"
-                android:textColor="?textColor"
                 android:textSize="10sp" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="wrap_content"
-                android:layout_height="10dp"
-                android:src="?watcher" />
+                android:layout_height="10dp" />
 
         </LinearLayout>
 

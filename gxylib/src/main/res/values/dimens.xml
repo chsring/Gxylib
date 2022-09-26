@@ -1,4 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="tipsTextMarginTop">4dp</dimen>
+    <dimen name="all_padding_num">1dp</dimen>
+    <dimen name="star_size">10dp</dimen>
+    <dimen name="all_padding_10">10dp</dimen>
+    <dimen name="all_padding_15">15dp</dimen>
+    <dimen name="all_padding_12">12dp</dimen>
+    <dimen name="allLine">0.5dp</dimen>
+    <!--字体尺寸-->
+    <dimen name="all_spacing_5">5dp</dimen>
+    <!--字体尺寸-->
+    <dimen name="all_padding_8">8dp</dimen>
+    <dimen name="x_design_tab_max_width">264dp</dimen>
+
+    <!-- setting -->
 
 </resources>
