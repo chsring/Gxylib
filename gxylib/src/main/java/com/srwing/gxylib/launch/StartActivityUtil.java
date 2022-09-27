@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
+import java.io.Serializable;
 import java.util.Map;
 
 import io.reactivex.rxjava3.core.Observable;
@@ -343,8 +344,10 @@ public class StartActivityUtil {
             for (Map.Entry<String, T> entry : params.entrySet()) {
                 if (entry.getValue() instanceof Integer)
                     intent.putExtra(entry.getKey(), (Integer) entry.getValue());
-                else if (entry.getValue() instanceof Integer)
+                else if (entry.getValue() instanceof String)
                     intent.putExtra(entry.getKey(), (String) entry.getValue());
+                else if (entry.getValue() instanceof Serializable)
+                    intent.putExtra(entry.getKey(), (Serializable) entry.getValue());
             }
         fragmentProxy.startActivityNoResult(intent);
     }
