@@ -1,12 +1,16 @@
 package com.srwing.gxylib.coreui.mvvm;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
 
 import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.srwing.gxylib.coreui.BaseToolBarActivity;
+import com.srwing.gxylib.coreui.BaseTitleActivity;
 import com.srwing.gxylib.coreui.BaseViewModel;
 
 import java.lang.reflect.ParameterizedType;
@@ -18,19 +22,36 @@ import java.lang.reflect.Type;
  * Date: 2022/6/23
  * Email: 694177407@qq.com
  */
-public abstract class MvvmActivity<VM extends BaseViewModel> extends BaseToolBarActivity {
+public abstract class BaseMvvmActivity<VB extends ViewDataBinding, VM extends BaseViewModel> extends BaseTitleActivity implements IMvvmActivity {
 
+
+    protected VB dataBinding;
     protected VM viewModel;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public int getBRId() {
+        return -1;
+    }
+
+    @Override
+    public void setContentView(int layoutResID) {
+        View layout = LayoutInflater.from(this).inflate(layoutResID, null, false);
         if (isMvvMMode()) {
+            dataBinding = DataBindingUtil.bind(layout);
             viewModel = obtainViewModel(this);
+            int brId = getBRId();
+            dataBinding.setVariable(brId, viewModel);
             //添加ViewModel的生命周期管理
             getLifecycle().addObserver(viewModel);
         }
+        if (getTitleLayout() != -1) {
+            //如果有标题
+            super.setContentView(setTitleContentView(layout));
+        } else {
+            super.setContentView(dataBinding.getRoot());
+        }
     }
+
 
     /**
      * 判断是否使用了 MVVM MODE
@@ -41,7 +62,7 @@ public abstract class MvvmActivity<VM extends BaseViewModel> extends BaseToolBar
         Type type = getClass().getGenericSuperclass();
         if (type instanceof ParameterizedType) {
             Type[] actualTypeArguments = ((ParameterizedType) type).getActualTypeArguments();
-            return actualTypeArguments.length == 1;
+            return actualTypeArguments.length == 2;
         }
         return true;
     }
@@ -58,7 +79,7 @@ public abstract class MvvmActivity<VM extends BaseViewModel> extends BaseToolBar
         Class modelClass;
         Type type = getClass().getGenericSuperclass();
         if (type instanceof ParameterizedType) {
-            modelClass = (Class) ((ParameterizedType) type).getActualTypeArguments()[0];
+            modelClass = (Class) ((ParameterizedType) type).getActualTypeArguments()[1];
         } else {
             //如果没有指定泛型参数，则默认使用BaseViewModel
             modelClass = BaseViewModel.class;
@@ -75,5 +96,4 @@ public abstract class MvvmActivity<VM extends BaseViewModel> extends BaseToolBar
         }
         super.onDestroy();
     }
-
 }

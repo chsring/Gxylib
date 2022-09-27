@@ -5,6 +5,7 @@
       <map>
         <entry key="../../../../../layout/custom_preview.xml" value="0.20462962962962963" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/b_base_title_bar.xml" value="0.32083333333333336" />
         <entry key="app/src/main/res/layout/main_activity.xml" value="0.31657608695652173" />
         <entry key="gxylib/src/main/res/layout/activity_base_top_bar.xml" value="0.2375" />
         <entry key="gxylib/src/main/res/layout/b_base_title_bar.xml" value="0.22010869565217392" />

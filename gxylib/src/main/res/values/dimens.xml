@@ -15,4 +15,19 @@
 
     <!-- setting -->
 
+    <!-- alert_info -->
+    <!-- alert_list -->
+    <!-- timeline -->
+    <!-- APP所有页面默认居左间距 -->
+
+    <dimen name="underline_height">1dp</dimen>
+    <dimen name="allRadius">5dp</dimen>
+    <dimen name="all_padding_6">6dp</dimen>
+    <dimen name="all_padding_4">4dp</dimen>
+    <dimen name="all_padding_2">2dp</dimen>
+    <dimen name="all_padding_3">3dp</dimen>
+    <dimen name="all_padding_14">14dp</dimen>
+    <dimen name="all_padding_16">16dp</dimen>
+    <dimen name="all_padding_5">5dp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
 </resources>

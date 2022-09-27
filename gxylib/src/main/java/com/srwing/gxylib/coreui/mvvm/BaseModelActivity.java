@@ -5,12 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import androidx.annotation.Nullable;
-import androidx.databinding.DataBindingUtil;
-import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.srwing.gxylib.coreui.BaseToolBarActivity;
+import com.srwing.gxylib.coreui.BaseTitleActivity;
 import com.srwing.gxylib.coreui.BaseViewModel;
 
 import java.lang.reflect.ParameterizedType;
@@ -22,55 +20,29 @@ import java.lang.reflect.Type;
  * Date: 2022/6/23
  * Email: 694177407@qq.com
  */
-public abstract class MvvmBindingActivity<VB extends ViewDataBinding, VM extends BaseViewModel> extends BaseToolBarActivity implements IMvvmActivity {
+public abstract class BaseModelActivity<VM extends BaseViewModel> extends BaseTitleActivity implements IMvvmActivity {
 
-    protected VB dataBinding;
     protected VM viewModel;
 
     @Override
     public int getBRId() {
-        return -1;
+        return 0;
     }
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        View childView = LayoutInflater.from(this).inflate(getContentView(), null, false);
+    public void setContentView(int layoutResID) {
+        View layout = LayoutInflater.from(this).inflate(layoutResID, null, false);
         if (isMvvMMode()) {
-            dataBinding = DataBindingUtil.bind(childView);
             viewModel = obtainViewModel(this);
-            int brId = getBRId();
-            dataBinding.setVariable(brId, viewModel);
-            //添加ViewModel的生命周期管理
             getLifecycle().addObserver(viewModel);
         }
-        initViewData();
+        if (getTitleLayout() != -1) {
+            //如果有标题
+            super.setContentView(setTitleContentView(layout));
+        } else {
+            super.setContentView(layout);
+        }
     }
-
-//    private void setContentView(View view, boolean hasTitle) {
-//        if (isMvvMMode()) {
-//            dataBinding = DataBindingUtil.bind(view);
-//            viewModel = obtainViewModel(this);
-//            int brId = getBRId();
-//            dataBinding.setVariable(brId, viewModel);
-//            //添加ViewModel的生命周期管理
-//            getLifecycle().addObserver(viewModel);
-//            if (hasTitle) {
-//                //如果有标题
-//                super.setContentView(setInnerContentView(view));
-//
-//            } else {
-//                super.setContentView(dataBinding.getRoot());
-//            }
-//        } else {
-//            if (hasTitle) {
-//                super.setContentView(setInnerContentView(view));
-//            } else {
-//                super.setContentView(view);
-//            }
-//        }
-//    }
-
 
     /**
      * 判断是否使用了 MVVM MODE
@@ -81,7 +53,7 @@ public abstract class MvvmBindingActivity<VB extends ViewDataBinding, VM extends
         Type type = getClass().getGenericSuperclass();
         if (type instanceof ParameterizedType) {
             Type[] actualTypeArguments = ((ParameterizedType) type).getActualTypeArguments();
-            return actualTypeArguments.length == 2;
+            return actualTypeArguments.length == 1;
         }
         return true;
     }
@@ -98,7 +70,7 @@ public abstract class MvvmBindingActivity<VB extends ViewDataBinding, VM extends
         Class modelClass;
         Type type = getClass().getGenericSuperclass();
         if (type instanceof ParameterizedType) {
-            modelClass = (Class) ((ParameterizedType) type).getActualTypeArguments()[1];
+            modelClass = (Class) ((ParameterizedType) type).getActualTypeArguments()[0];
         } else {
             //如果没有指定泛型参数，则默认使用BaseViewModel
             modelClass = BaseViewModel.class;
