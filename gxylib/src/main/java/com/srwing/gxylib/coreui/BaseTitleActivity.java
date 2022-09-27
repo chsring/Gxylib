@@ -1,10 +1,8 @@
 package com.srwing.gxylib.coreui;
 
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
@@ -33,6 +31,7 @@ public abstract class BaseTitleActivity extends RxAppCompatActivity {
 
     protected View setTitleContentView(View view) {
         LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.activity_base_top_bar, null, false);
+        setBackGroundColor(linearLayout);
         if (getTitleLayout() != -1) {
             View titleLayout = LayoutInflater.from(this).inflate(getTitleLayout(), null, false);
             setTitleContent(titleLayout);
@@ -51,6 +50,11 @@ public abstract class BaseTitleActivity extends RxAppCompatActivity {
 
     //获取到标题布局，进行详细设置
     protected void setTitleContent(View view) {
+
+    }
+
+    //子类用于 设置背景
+    protected void setBackGroundColor(LinearLayout view) {
 
     }
 
