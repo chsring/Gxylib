@@ -20,3 +20,4 @@
   -- (5) convert与Multipleitem 多布局的转换器
 - 5.业务的util工具类
 - 6.将 vlayout 引入本地，做对androidx的支持
+- 7.引入AsyncListDiffer局部刷新使用。 如果不用AsyncListDiffer，vlayout在一个adapter 调用notifyDataSetChanged 刷新时，全部adapter都会刷新

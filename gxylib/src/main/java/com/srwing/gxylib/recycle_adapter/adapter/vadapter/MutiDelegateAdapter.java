@@ -14,7 +14,7 @@ import com.srwing.gxylib.recycle_adapter.MultipleItemEntity;
 import com.srwing.gxylib.vlayout.LayoutHelper;
 
 /**
- * Description:多item的 快速布局的 支持vlayout的adapter
+ * Description:多item的 快速布局的 支持vlayout的adapter，如果不用vlayout 数据有单一接口来源 就用 qadapter包下面的
  * Created by srwing
  * Date: 2022/6/29
  * Email: 694177407@qq.com
@@ -62,6 +62,8 @@ public abstract class MutiDelegateAdapter<T extends MultipleItemEntity, VH exten
     @Override
     public void onBindViewHolder(@NonNull VH holder, int position) {
         if (CollectionUtils.isEmpty(datas)) return;
-        convert(holder, datas.get(position).getItemType(), datas.get(position), position);
+//        convert(holder, datas.get(position).getItemType(), datas.get(position), position);
+        convert(holder, datas.get(position).getItemType(), mDiffUtil.getCurrentList().get(position), position);
+
     }
 }

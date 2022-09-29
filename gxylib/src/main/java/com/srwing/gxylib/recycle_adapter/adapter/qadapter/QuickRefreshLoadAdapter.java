@@ -25,13 +25,12 @@ public abstract class QuickRefreshLoadAdapter<T, VH extends BaseViewHolder>
     }
 
     @Override
-    public void setList(List<? extends T> datas) {
+    public void setList(List<T> datas) {
         super.setList(datas);
     }
 
     @Override
-    public void addList(List<? extends T> datas) {
+    public void addList(List<T> datas) {
         super.addData(datas);
     }
-
 }

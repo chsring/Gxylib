@@ -41,7 +41,8 @@ public abstract class QuickDelegateAdapter<T, VH extends BaseViewHolder> extends
     @Override
     public void onBindViewHolder(@NonNull VH holder, int position) {
         if (CollectionUtils.isEmpty(datas)) return;
-        convert(holder, datas.get(position), position);
+//        convert(holder, datas.get(position), position);
+        convert(holder, mDiffUtil.getCurrentList().get(position), position);
     }
 
     public abstract void convert(VH holder, T data, int position);
