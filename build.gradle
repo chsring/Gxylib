@@ -10,7 +10,7 @@ buildscript {
     }
     repositories {
         google()
-//        maven { url 'https://jitpack.io' }
+//        maven { url 'https://jitpack.io' } 第13行，14行解决 semver4j-xxx.jar找不到的问题
         maven { url 'https://mvnrepository.com/artifact/com.github.gundy/semver4j' }
         maven { url 'https://repo1.maven.org/maven2/' }
         maven { url 'https://developer.huawei.com/repo/' }
@@ -28,6 +28,7 @@ buildscript {
 allprojects {
     repositories {
         google()
+//        maven { url 'https://jitpack.io' } 第31行，32行解决 semver4j-xxx.jar找不到的问题
         maven { url 'https://jitpack.io' }
         maven { url 'https://mvnrepository.com/artifact/com.github.gundy/semver4j' }
         maven { url 'https://repo1.maven.org/maven2/' }
