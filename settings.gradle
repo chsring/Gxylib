@@ -1,4 +1,4 @@
 
 rootProject.name = "Gxylib"
 include ':app'
-include ':gxylib'
+//include ':gxylib'
