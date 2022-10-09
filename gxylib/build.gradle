@@ -48,6 +48,7 @@ dependencies {
     implementation deps.rxjava.rxjava
     implementation deps.rxjava.rxandroid
     implementation deps.support.recyclerview
+    implementation 'com.github.jitpack:android-example:{latest version}'
     api deps.recyclerAdapter
 
     api deps.smart_refresh.layout
