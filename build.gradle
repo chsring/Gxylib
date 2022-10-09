@@ -13,6 +13,7 @@ buildscript {
         maven { url 'https://jitpack.io' }
         maven { url 'https://repo1.maven.org/maven2/' }
         maven { url 'https://developer.huawei.com/repo/' }
+        maven { url 'https://mvnrepository.com/artifact/com.github.gundy/semver4j' }
         mavenCentral()
         maven { url 'https://maven.aliyun.com/repository/releases' }
 
@@ -32,6 +33,7 @@ allprojects {
         maven { url 'https://developer.huawei.com/repo/' }
         mavenCentral()
         maven { url 'https://maven.aliyun.com/repository/releases' }
+        maven { url 'https://mvnrepository.com/artifact/com.github.gundy/semver4j' }
     }
 }
 
