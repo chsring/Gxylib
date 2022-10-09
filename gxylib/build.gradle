@@ -48,7 +48,7 @@ dependencies {
     implementation deps.rxjava.rxjava
     implementation deps.rxjava.rxandroid
     implementation deps.support.recyclerview
-    implementation 'com.github.jitpack:android-example:{latest version}'
+    implementation 'com.github.jitpack:android-example:3.0'
     api deps.recyclerAdapter
 
     api deps.smart_refresh.layout
@@ -62,7 +62,7 @@ afterEvaluate {
                 from components.release
                 groupId = 'com.srwing'
                 artifactId = 'gxylib'
-                version = '1.1.9'
+                version = '1.2.0'
             }
         }
     }
