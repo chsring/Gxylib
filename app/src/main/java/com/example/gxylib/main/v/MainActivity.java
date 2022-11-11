@@ -1,11 +1,13 @@
 package com.example.gxylib.main.v;
 
+import android.view.Gravity;
 import android.view.View;
 
 import com.example.gxylib.R;
 import com.example.gxylib.databinding.ActivityMainBinding;
 import com.example.gxylib.main.vm.MainViewModel;
 import com.srwing.gxylib.coreui.mvvm.BaseMvvmActivity;
+import com.srwing.gxylib.coreui.view.badgevview.BadgeView;
 import com.srwing.t_network.GxyNet;
 import com.srwing.t_network.interceptors.LogInterceptor;
 
@@ -24,6 +26,12 @@ public class MainActivity extends BaseMvvmActivity<ActivityMainBinding, MainView
     protected void initViewData() {
         super.initViewData();
         setTitle("首页");
+
+        new BadgeView(this).bindTarget(dataBinding.line1)
+                .setBadgeNumber(6).setBadgeGravity(Gravity.TOP | Gravity.END);
+//                .setGravityOffset(-6,true);
+
+
         GxyNet.init(this)
                 .withApiHost("https://api.19x19.com")
                 .withInterceptor(new LogInterceptor())
