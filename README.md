@@ -13,7 +13,7 @@
 - Step 2. Add the dependency
 ```groovy
     dependencies {
-            implementation 'com.github.chsring:Gxylib:1.2.9'
+            implementation 'com.github.chsring:Gxylib:1.3.0'
     }
 ```
 

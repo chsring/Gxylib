@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentManager;
 
 import java.io.Serializable;
 import java.util.Map;
+import java.util.WeakHashMap;
 
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.functions.Consumer;
@@ -27,15 +28,18 @@ public class StartActivityUtil {
 
     /**
      * 无result 有传入参数
-     *
-     * @param activity
-     * @param clazz
-     * @param param
      */
 //    public static void startActivity(Activity activity, Class<?> clazz,
 //                                     Map<String, String> param) {
 //        new StartActivityUtil(activity, clazz).startActivity(param);
 //    }
+    public static <V> void startActivity(Activity activity, Class<?> clazz,
+                                         String key, V value) {
+        Map<String, V> param = new WeakHashMap<>();
+        param.put(key, value);
+        new StartActivityUtil(activity, clazz).startActivity(param);
+    }
+
     public static <T> void startActivity(Activity activity, Class<?> clazz,
                                          Map<String, T> param) {
         new StartActivityUtil(activity, clazz).startActivity(param);
