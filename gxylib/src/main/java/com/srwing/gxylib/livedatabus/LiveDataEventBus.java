@@ -1,10 +1,11 @@
 package com.srwing.gxylib.livedatabus;
+import android.util.Log;
+
 import androidx.annotation.Nullable;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 
 import com.jeremyliao.liveeventbus.LiveEventBus;
-import com.srwing.t_network.utils.GxyLogger;
 
 /**
  * Description:
@@ -32,7 +33,7 @@ public class LiveDataEventBus {
         LiveEventBus.get(event, Object.class)
                 .observe(context, o -> {
                     if (o != null)
-                        GxyLogger.d(TAG, "deal msg:" + o);
+                        Log.d(TAG, "deal msg:" + o);
                     eventAction.deal(o);
                 });
 //        LiveDataBus.get().with(event, Object.class)
@@ -49,7 +50,7 @@ public class LiveDataEventBus {
                     @Override
                     public void onChanged(@Nullable BaseEventEntity o) {
                         if (o != null) {
-                            GxyLogger.d(TAG, "deal msg TAG:" + o.TAG);
+                            Log.d(TAG, "deal msg TAG:" + o.TAG);
                         }
                         eventAction.deal(o.TAG, o);
                     }
