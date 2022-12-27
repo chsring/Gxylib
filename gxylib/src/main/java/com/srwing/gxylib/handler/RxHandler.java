@@ -54,9 +54,11 @@ public class RxHandler {
             tObservable = tObservable.compose(rxLifeCycle.bindToLifecycle());
         }
         subscription = tObservable.doOnComplete(() -> {
-            handRxMsg.handMsg(what);
-            subscription.dispose();
-            subscription = null;
+            if ((subscription = bus.get(what)) != null) {
+                subscription.dispose();
+                bus.remove(what);
+                subscription = null;
+            }
         }).subscribe();
         bus.put(what, subscription);
     }
@@ -74,8 +76,11 @@ public class RxHandler {
         }
         subscription = tObservable.doOnComplete(() -> {
             handRxMsg.handMsg(what);
-            subscription.dispose();
-            subscription = null;
+            if ((subscription = bus.get(what)) != null) {
+                subscription.dispose();
+                bus.remove(what);
+                subscription = null;
+            }
         }).subscribe();
         bus.put(what, subscription);
     }
