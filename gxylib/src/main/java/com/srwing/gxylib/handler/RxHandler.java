@@ -36,7 +36,6 @@ public class RxHandler {
         return this;
     }
 
-
     /**
      * 延时发送消息的方法
      *
@@ -50,8 +49,7 @@ public class RxHandler {
             bus.remove(what);
         }
 
-        Observable<Long> tObservable = Observable.timer(delayMillis, TimeUnit.MILLISECONDS)
-                .observeOn(AndroidSchedulers.mainThread());
+        Observable<Long> tObservable = Observable.timer(delayMillis, TimeUnit.MILLISECONDS).observeOn(AndroidSchedulers.mainThread());
         if (null != rxLifeCycle) {
             tObservable = tObservable.compose(rxLifeCycle.bindToLifecycle());
         }
@@ -63,13 +61,44 @@ public class RxHandler {
         bus.put(what, subscription);
     }
 
+    public <T> void sendMsgDelayed(LifecycleProvider<T> rxLifeCycle, int what, long delayMillis, HandRxMsg handRxMsg) {
+        //如果 subscription 不为空，说明已经启动一个 timer 无需再次启动timer
+        if ((subscription = bus.get(what)) != null) {
+            subscription.dispose();
+            bus.remove(what);
+        }
+
+        Observable<Long> tObservable = Observable.timer(delayMillis, TimeUnit.MILLISECONDS).observeOn(AndroidSchedulers.mainThread());
+        if (null != rxLifeCycle) {
+            tObservable = tObservable.compose(rxLifeCycle.bindToLifecycle());
+        }
+        subscription = tObservable.doOnComplete(() -> {
+            handRxMsg.handMsg(what);
+            subscription.dispose();
+            subscription = null;
+        }).subscribe();
+        bus.put(what, subscription);
+    }
+
+    public <T> void sendMsgDelayed_2(LifecycleProvider<T> rxLifeCycle, int what, long delayMillis, HandRxMsg handRxMsg) {
+        if ((subscription = bus.get(what)) != null) {
+            subscription.dispose();
+            bus.remove(what);
+        }
+        Observable<Long> tObservable = Observable.timer(delayMillis, TimeUnit.MILLISECONDS).observeOn(AndroidSchedulers.mainThread());
+        if (null != rxLifeCycle) {
+            tObservable = tObservable.compose(rxLifeCycle.bindToLifecycle());
+        }
+        subscription = tObservable.doOnComplete(() -> handRxMsg.handMsg(what)).subscribe();
+        bus.put(what, subscription);
+    }
+
     public <T> void sendMsgDelayed_2(LifecycleProvider<T> rxLifeCycle, int what, long delayMillis) {
         if ((subscription = bus.get(what)) != null) {
             subscription.dispose();
             bus.remove(what);
         }
-        Observable<Long> tObservable = Observable.timer(delayMillis, TimeUnit.MILLISECONDS)
-                .observeOn(AndroidSchedulers.mainThread());
+        Observable<Long> tObservable = Observable.timer(delayMillis, TimeUnit.MILLISECONDS).observeOn(AndroidSchedulers.mainThread());
         if (null != rxLifeCycle) {
             tObservable = tObservable.compose(rxLifeCycle.bindToLifecycle());
         }
@@ -83,19 +112,26 @@ public class RxHandler {
             subscription.dispose();
             bus.remove(what);
         }
-        Observable<Long> tObservable = Observable.interval(delay, period, TimeUnit.MILLISECONDS)
-                .take(timeCount); //执行多少次
+        Observable<Long> tObservable = Observable.interval(delay, period, TimeUnit.MILLISECONDS).take(timeCount); //执行多少次
         if (null != rxLifeCycle) {
             tObservable = tObservable.compose(rxLifeCycle.bindToLifecycle());
         }
         subscription = tObservable //.doOnNext(o -> handRxMsg.handMsg(what))
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<Long>() {
-                    @Override
-                    public void accept(Long aLong) throws Throwable {
-                        handRxMsg.handMsg(what);
-                    }
-                });
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(aLong -> handRxMsg.handMsg(what));
+        bus.put(what, subscription);
+    }
+
+    public <T> void sendMsgCycle(LifecycleProvider<T> rxLifeCycle, int what, int timeCount, int period, int delay, HandRxMsg handRxMsg) {
+        if ((subscription = bus.get(what)) != null && !subscription.isDisposed()) {
+            subscription.dispose();
+            bus.remove(what);
+        }
+        Observable<Long> tObservable = Observable.interval(delay, period, TimeUnit.MILLISECONDS).take(timeCount); //执行多少次
+        if (null != rxLifeCycle) {
+            tObservable = tObservable.compose(rxLifeCycle.bindToLifecycle());
+        }
+        subscription = tObservable //.doOnNext(o -> handRxMsg.handMsg(what))
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(aLong -> handRxMsg.handMsg(what));
         bus.put(what, subscription);
     }
 
@@ -110,9 +146,21 @@ public class RxHandler {
             tObservable = tObservable.compose(rxLifeCycle.bindToLifecycle());
         }
         //循环用onNext，执行一次 用complete
-        subscription = tObservable.doOnNext(o -> handRxMsg.handMsg(what))
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe();
+        subscription = tObservable.doOnNext(o -> handRxMsg.handMsg(what)).observeOn(AndroidSchedulers.mainThread()).subscribe();
+        bus.put(what, subscription);
+    }
+
+    public <T> void sendMsgCycle(LifecycleProvider<T> rxLifeCycle, int what, long period, long delay, HandRxMsg handRxMsg) {
+        if ((subscription = bus.get(what)) != null && !subscription.isDisposed()) {
+            subscription.dispose();
+            bus.remove(what);
+        }
+        Observable<Long> tObservable = Observable.interval(delay, period, TimeUnit.MILLISECONDS);
+        if (null != rxLifeCycle) {
+            tObservable = tObservable.compose(rxLifeCycle.bindToLifecycle());
+        }
+        //循环用onNext，执行一次 用complete
+        subscription = tObservable.doOnNext(o -> handRxMsg.handMsg(what)).observeOn(AndroidSchedulers.mainThread()).subscribe();
         bus.put(what, subscription);
     }
 
