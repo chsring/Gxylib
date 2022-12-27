@@ -38,7 +38,7 @@ android {
 dependencies {
 
 //    implementation project(':gxylib')
-    implementation 'com.github.chsring:Gxylib:1.3.1'
+    implementation 'com.github.chsring:Gxylib:1.3.3'
     api deps.okhttp.okhttp
     implementation 'com.github.chsring:GxyNet:v1.1.2'
     implementation 'androidx.core:core-ktx:1.7.0'
