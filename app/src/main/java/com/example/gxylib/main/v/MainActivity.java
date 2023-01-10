@@ -1,5 +1,6 @@
 package com.example.gxylib.main.v;
 
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 
@@ -8,6 +9,8 @@ import com.example.gxylib.databinding.ActivityMainBinding;
 import com.example.gxylib.main.vm.MainViewModel;
 import com.srwing.gxylib.coreui.mvvm.BaseMvvmActivity;
 import com.srwing.gxylib.coreui.view.badgevview.BadgeView;
+import com.srwing.gxylib.timer.CutDownTimer;
+import com.srwing.gxylib.timer.OnCountDownTimerListener;
 import com.srwing.t_network.GxyNet;
 import com.srwing.t_network.interceptors.LogInterceptor;
 
@@ -47,5 +50,27 @@ public class MainActivity extends BaseMvvmActivity<ActivityMainBinding, MainView
             // TODO
         });
         viewModel.getMain();
+
+
+        CutDownTimer mSecondTimer = new CutDownTimer(this, 10000, 1000, 1000);
+        mSecondTimer.setOnCountDownTimerListener(new OnCountDownTimerListener() {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                Log.e("TEST_TIMER", "onTick millisUntilFinished: " + millisUntilFinished);
+            }
+
+            @Override
+            public void onFinish() {
+                Log.d("TEST_TIMER", "onFinish  ");
+
+            }
+
+            @Override
+            public void onCancel() {
+                Log.d("TEST_TIMER", "onCancel  ");
+
+            }
+        });
+        mSecondTimer.start();
     }
 }
