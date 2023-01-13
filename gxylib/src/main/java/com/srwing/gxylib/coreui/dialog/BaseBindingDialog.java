@@ -15,17 +15,20 @@ import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
 
 /**
  * Description:
  * Created srwing
- * Quoted from： https://www.jianshu.com/p/5a9e8beebb07
- * Date: 2022/9/30
+ * Date: 2023/1/12
  * Email: 694177407@qq.com
  */
-public abstract class BaseDialog extends DialogFragment {
+public abstract class BaseBindingDialog<T extends ViewDataBinding> extends DialogFragment {
 
+    protected T databinding;
     private int DEFAULT_WIDTH = WindowManager.LayoutParams.MATCH_PARENT;//宽
     private int DEFAULT_HEIGHT = WindowManager.LayoutParams.WRAP_CONTENT;//高
     private int DEFAULT_GRAVITY = Gravity.CENTER;//Gravity.BOTTOM;//位置
@@ -37,7 +40,8 @@ public abstract class BaseDialog extends DialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View mView = inflater.inflate(getLayoutId(), container, false);
-        initViews(mView);
+        databinding = DataBindingUtil.bind(mView);
+        initData();
         return mView;
     }
 
@@ -54,7 +58,7 @@ public abstract class BaseDialog extends DialogFragment {
             window.getDecorView().setPadding(0, 0, 0, 0);
             window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             WindowManager.LayoutParams lp = window.getAttributes();
-            lp.width = DEFAULT_WIDTH;
+            lp.width = (int) (getResources().getDisplayMetrics().widthPixels * 0.8);
             lp.height = DEFAULT_HEIGHT;
             lp.gravity = DEFAULT_GRAVITY;
             lp.windowAnimations = android.R.style.Animation_InputMethod;
@@ -92,7 +96,6 @@ public abstract class BaseDialog extends DialogFragment {
 
     /**
      * 设置点击返回按钮是否可取消
-     *
      */
     @Override
     public void setCancelable(boolean cancelable) {
@@ -101,21 +104,30 @@ public abstract class BaseDialog extends DialogFragment {
 
     /**
      * 设置点击外部是否可取消
-     *
      */
     public void setCanceledOnTouchOutside(boolean canceledOnTouchOutside) {
         mCanceledOnTouchOutside = canceledOnTouchOutside;
     }
 
     /**
+     * 获取弹窗的TAG
+     */
+    protected abstract String getDialogTag();
+
+    /**
      * 设置布局
-     *
      */
     protected abstract int getLayoutId();
 
     /**
-     * 初始化Views
-     *
+     * ⚠️ 初始化业务逻辑必须从这里设置
      */
-    protected abstract void initViews(View v);
+    protected abstract void initData();
+
+
+    //展示弹窗
+    public void showDialog(boolean cancleAble, FragmentManager fragmentManager) {
+        setCancelable(cancleAble);
+        show(fragmentManager, getDialogTag());
+    }
 }
