@@ -24,8 +24,8 @@ public abstract class BaseMvpActivity<VB extends ViewDataBinding, P extends Base
     protected VB dataBinding;
 
     @Override
-    public void setContentView(int layoutResID) {
-        View layout = LayoutInflater.from(this).inflate(layoutResID, null, false);
+    public void setContentView(int layoutResId) {
+        View layout = LayoutInflater.from(this).inflate(layoutResId, null, false);
         dataBinding = DataBindingUtil.bind(layout);
         if (getTitleLayout() != -1) {
             //如果有标题

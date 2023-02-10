@@ -4,8 +4,8 @@ buildscript {
     if (!dir.exists()) {
         println("gradle deal git clone conifg")
         def rmUpdate = "git clone -b master https://github.com/chsring/config.git"
-        def procUp = rmUpdate.execute()
-        procUp.waitFor()
+        def proUp = rmUpdate.execute()
+        proUp.waitFor()
         println("gradle deal git clone finish")
     }
     repositories {

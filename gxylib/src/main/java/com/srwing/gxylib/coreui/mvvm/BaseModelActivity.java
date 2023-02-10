@@ -30,8 +30,8 @@ public abstract class BaseModelActivity<VM extends BaseViewModel> extends BaseTi
     }
 
     @Override
-    public void setContentView(int layoutResID) {
-        View layout = LayoutInflater.from(this).inflate(layoutResID, null, false);
+    public void setContentView(int layoutResId) {
+        View layout = LayoutInflater.from(this).inflate(layoutResId, null, false);
         if (isMvvMMode()) {
             viewModel = obtainViewModel(this);
             getLifecycle().addObserver(viewModel);
@@ -46,8 +46,6 @@ public abstract class BaseModelActivity<VM extends BaseViewModel> extends BaseTi
 
     /**
      * 判断是否使用了 MVVM MODE
-     *
-     * @return
      */
     private boolean isMvvMMode() {
         Type type = getClass().getGenericSuperclass();
@@ -60,10 +58,7 @@ public abstract class BaseModelActivity<VM extends BaseViewModel> extends BaseTi
 
     /**
      * 根据Activity泛型参数 初始化ViewModel
-     *
-     * @param activity
      * @param <VM>     ViewModel 泛型参数
-     * @return
      */
     public <VM> VM obtainViewModel(FragmentActivity activity) {
         // Use a Factory to inject dependencies into the ViewModel

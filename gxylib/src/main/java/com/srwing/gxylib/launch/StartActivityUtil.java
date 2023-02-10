@@ -344,15 +344,17 @@ public class StartActivityUtil {
      * @param params
      */
     private <T> void startActivity(Map<String, T> params) {
-        if (null != params && params.size() > 0)
+        if (null != params && params.size() > 0) {
             for (Map.Entry<String, T> entry : params.entrySet()) {
-                if (entry.getValue() instanceof Integer)
+                if (entry.getValue() instanceof Integer) {
                     intent.putExtra(entry.getKey(), (Integer) entry.getValue());
-                else if (entry.getValue() instanceof String)
+                } else if (entry.getValue() instanceof String) {
                     intent.putExtra(entry.getKey(), (String) entry.getValue());
-                else if (entry.getValue() instanceof Serializable)
+                } else if (entry.getValue() instanceof Serializable) {
                     intent.putExtra(entry.getKey(), (Serializable) entry.getValue());
+                }
             }
+        }
         fragmentProxy.startActivityNoResult(intent);
     }
 

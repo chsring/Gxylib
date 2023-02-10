@@ -1,10 +1,8 @@
 package com.srwing.gxylib.coreui.mvvm;
 
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 
@@ -20,8 +18,8 @@ public abstract class BaseBindingActivity<VB extends ViewDataBinding> extends Ba
     public VB dataBinding;
 
     @Override
-    public void setContentView(int layoutResID) {
-        View layout = LayoutInflater.from(this).inflate(layoutResID, null, false);
+    public void setContentView(int layoutResId) {
+        View layout = LayoutInflater.from(this).inflate(layoutResId, null, false);
         dataBinding = DataBindingUtil.bind(layout);
         if (getTitleLayout() != -1) {
             //如果有标题

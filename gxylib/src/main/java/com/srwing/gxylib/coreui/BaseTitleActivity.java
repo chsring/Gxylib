@@ -23,8 +23,9 @@ public abstract class BaseTitleActivity extends RxAppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActionBar supportActionBar = getSupportActionBar();
-        if (null != supportActionBar)
+        if (null != supportActionBar) {
             supportActionBar.hide();
+        }
         setContentView(getContentView());
         initViewData();
     }
