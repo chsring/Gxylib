@@ -4,7 +4,7 @@
 ```groovy
     allprojects {
         repositories {
-            ...
+//            ...
             maven { url 'https://jitpack.io' }
         }
     }
@@ -13,7 +13,8 @@
 - Step 2. Add the dependency
 ```groovy
     dependencies {
-            implementation 'com.github.chsring:Gxylib:1.4.1'
+            implementation 'com.github.chsring:Gxylib:1.4.2'
     }
 ```
+- [具体内容](./gxylib/README.md)
 
