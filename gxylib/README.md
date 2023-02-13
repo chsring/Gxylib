@@ -15,7 +15,7 @@
 
 #### 2.view包：
 
--- 带删除button的Editext
+- 带删除button的Editext
 
 #### 3.livedatabus：自定义的事件bus
 
