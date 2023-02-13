@@ -12,12 +12,12 @@ import android.widget.EditText;
  *
  * 自带清理Edit内容
  */
-public class GolaxyTextWatcherWithClear implements TextWatcher {
+public class ClearTextWatcher implements TextWatcher {
 
     private final EditText mEdit;
     private final View mClearView;
 
-    public GolaxyTextWatcherWithClear(EditText edit, View clearView) {
+    public ClearTextWatcher(EditText edit, View clearView) {
         this.mEdit = edit;
         this.mClearView = clearView;
         clearView.setVisibility(View.GONE);

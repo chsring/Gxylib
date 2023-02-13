@@ -6,17 +6,17 @@
 
 + (1) dialog：基础dialog，将其封装到baseActivity
 + (2) view：基础自定义view包
+    * 带删除button的Editext
+    * KeyValueView，左边文字右边图标的view
+    * PasswordView，密码的view
+    * BadgeView，消息的小红点
 + (3) 封装baseActivity 继承自Rx，处理生命周期，减轻对BaseActivity的封装
 + (4) 支持Mvvm的Activity和Fragment
     * MvvmActivity 只有 viewmodel 的Activity
     * BindingActivity 只有 databinding 的 Activity
     * MvvmBindingActivity 有 viewmodel 和 databinding 的 Activity
 + (5) 支持Mvp的框架 和 BaseMvpActivity 的引入
-
-#### 2.view包：
-
-- 带删除button的Editext
-
+#### 2.新增可暂停的倒计时组件CutDownTimer
 #### 3.livedatabus：自定义的事件bus
 
 #### 4.recycle_adapter：封装的各类adapter
@@ -35,12 +35,9 @@
 
 #### 8.封装基于DialogFragment的BaseDialog
 
-#### 9.新增消息的小红点，BadgeView
+#### 9.新增LargeLifecycleLiveData，将LiveData的活跃状态延长到CREATED
 
 #### 10.新增替换startActivityForResult的方法
 
 #### 11.rxHandler中去掉setHandler方法，新增ActivityEvent生命周期控制的方法
 
-#### 12.新增LargeLifecycleLiveData，将LiveData的活跃状态延长到CREATED
-
-#### 13.新增可暂停的倒计时组件CutDownTimer
