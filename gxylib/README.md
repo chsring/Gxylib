@@ -33,7 +33,7 @@
 
 #### 7.引入AsyncListDiffer局部刷新使用。 如果不用AsyncListDiffer，vlayout在一个adapter 调用notifyDataSetChanged 刷新时，全部adapter都会刷新
 
-#### 8.封装基于DialogFragment的git push origin :refs/tags/tag-nameBaseDialog
+#### 8.封装基于DialogFragment的BaseDialog
 
 #### 9.新增消息的小红点，BadgeView
 
