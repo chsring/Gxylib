@@ -42,3 +42,5 @@
 #### 11.rxHandler中去掉setHandler方法，新增ActivityEvent生命周期控制的方法
 
 #### 12.新增LargeLifecycleLiveData，将LiveData的活跃状态延长到CREATED
+
+#### 13.新增可暂停的倒计时组件CutDownTimer
