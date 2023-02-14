@@ -12,9 +12,12 @@
     * BadgeView，消息的小红点
 + (3) 封装baseActivity 继承自Rx，处理生命周期，减轻对BaseActivity的封装
 + (4) 支持Mvvm的Activity和Fragment
-    * MvvmActivity 只有 viewmodel 的Activity
-    * BindingActivity 只有 databinding 的 Activity
-    * MvvmBindingActivity 有 viewmodel 和 databinding 的 Activity
+    * BaseLifeViewModel 支持生命周期的VM，范型可以传ActivityEvent和FragmentEvent，可以获取到this，进而传到网络请求框架中
+    * BaseModelActivity 只有 viewmodel 的Activity
+    * BaseBindingActivity 只有 databinding 的 Activity
+    * BaseMvvmActivity 有 viewmodel 和 databinding 的 Activity
+    * BaseModelFragment 只有 viewmodel 的Fragment
+    * BaseMvvmFragment 有 viewmodel 和 databinding 的 Fragment
 + (5) 支持Mvp的框架 和 BaseMvpActivity 的引入
 #### 2.新增可暂停的倒计时组件CutDownTimer
 #### 3.livedatabus：自定义的事件bus
@@ -40,4 +43,6 @@
 #### 10.新增替换startActivityForResult的方法
 
 #### 11.rxHandler中去掉setHandler方法，新增ActivityEvent生命周期控制的方法
+
+#### 12.新增BaseLifeViewModel 与Activity 的生命周期一致
 

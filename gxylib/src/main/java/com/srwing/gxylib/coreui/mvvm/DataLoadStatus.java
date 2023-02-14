@@ -1,4 +1,4 @@
-package com.srwing.gxylib.coreui;
+package com.srwing.gxylib.coreui.mvvm;
 
 import androidx.annotation.NonNull;
 

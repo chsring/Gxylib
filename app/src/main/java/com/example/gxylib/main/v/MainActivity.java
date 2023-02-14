@@ -3,9 +3,11 @@ package com.example.gxylib.main.v;
 import android.content.Intent;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.widget.AppCompatTextView;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.example.gxylib.R;
 import com.example.gxylib.databinding.ActivityMainBinding;
 import com.example.gxylib.main.vm.MainViewModel;
@@ -47,15 +49,16 @@ public class MainActivity extends BaseMvvmActivity<ActivityMainBinding, MainView
 //                .setGravityOffset(-6,true);
 
 
-        GxyNet.init(this).withApiHost("https://api.19x19.com").withInterceptor(new LogInterceptor()).withLoggerAdapter() //设置LogAdapter
+        GxyNet.init(this).withApiHost("https://server6.19x19.com")
+                .withInterceptor(new LogInterceptor()).withLoggerAdapter() //设置LogAdapter
                 .withDebugMode(true) //设置是否打印请求 日志
                 .withNoProxy(false).configure(); //配置生效
 
 
         viewModel.getLiveData().observe(this, data -> {
             if (data == null) return;
-//              dataBinding.setBean(data);
-            // TODO
+            ToastUtils.showLong("aaaaa");
+
         });
         viewModel.getMain();
 

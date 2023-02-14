@@ -6,7 +6,7 @@ import android.view.View;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 
-import com.srwing.gxylib.coreui.BaseTitleActivity;
+import com.srwing.gxylib.coreui.BaseActivity;
 
 /**
  * Description: 只带标题的 Activity
@@ -14,7 +14,7 @@ import com.srwing.gxylib.coreui.BaseTitleActivity;
  * Date: 2022/7/28
  * Email: 694177407@qq.com
  */
-public abstract class BaseBindingActivity<VB extends ViewDataBinding> extends BaseTitleActivity {
+public abstract class BaseBindingActivity<VB extends ViewDataBinding> extends BaseActivity {
     public VB dataBinding;
 
     @Override

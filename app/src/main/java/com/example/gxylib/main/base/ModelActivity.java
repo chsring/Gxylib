@@ -11,8 +11,8 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 
 import com.example.gxylib.R;
-import com.srwing.gxylib.coreui.BaseViewModel;
 import com.srwing.gxylib.coreui.mvvm.BaseModelActivity;
+import com.srwing.gxylib.coreui.mvvm.BaseViewModel;
 
 /**
  * Description:
@@ -107,7 +107,6 @@ public abstract class ModelActivity<VM extends BaseViewModel> extends BaseModelA
             titleText.setText(text);
         }
     }
-
 
 
 }

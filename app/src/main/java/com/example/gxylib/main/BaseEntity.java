@@ -7,4 +7,6 @@ package com.example.gxylib.main;
  * Email: 694177407@qq.com
  */
 public class BaseEntity {
+    public int code;
+    public String msg;
 }

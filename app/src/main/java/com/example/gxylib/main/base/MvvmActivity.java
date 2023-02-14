@@ -13,8 +13,8 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.databinding.ViewDataBinding;
 
 import com.example.gxylib.R;
-import com.srwing.gxylib.coreui.BaseViewModel;
 import com.srwing.gxylib.coreui.mvvm.BaseMvvmActivity;
+import com.srwing.gxylib.coreui.mvvm.BaseViewModel;
 import com.srwing.gxylib.coreui.mvvm.IMvvmActivity;
 import com.srwing.gxylib.handler.RxHandler;
 

@@ -17,7 +17,7 @@ import com.trello.rxlifecycle4.components.support.RxAppCompatActivity;
  * Date: 2022/9/26
  * Email: 694177407@qq.com
  */
-public abstract class BaseTitleActivity extends RxAppCompatActivity {
+public abstract class BaseActivity extends RxAppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

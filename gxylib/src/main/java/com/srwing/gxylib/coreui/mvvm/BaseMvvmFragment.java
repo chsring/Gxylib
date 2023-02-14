@@ -7,23 +7,26 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
+import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ViewDataBinding;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.srwing.gxylib.coreui.BaseFragment;
-import com.srwing.gxylib.coreui.BaseViewModel;
+import com.trello.rxlifecycle4.components.support.RxFragment;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
 /**
- * Description: 无databinding的Fragment
+ * Description:MvvM 模式BaseFragment 处理ViewModel绑定
  * Created by srwing
- * Date: 2022/6/23
- * Email: 694177407@qq.com
+ * Date: 23/1/2019
+ * Email: surao@foryou56.com
  */
-public abstract class MvvmFragment<VM extends BaseViewModel> extends BaseFragment implements IMvvmActivity {
+public abstract class BaseMvvmFragment<VB extends ViewDataBinding, VM extends BaseViewModel>
+        extends BaseFragment implements IMvvmActivity {
 
+    protected VB dataBinding;
     protected VM viewModel;
 
     public abstract int getLayoutId();
@@ -46,22 +49,34 @@ public abstract class MvvmFragment<VM extends BaseViewModel> extends BaseFragmen
         Type type = getClass().getGenericSuperclass();
         if (type instanceof ParameterizedType) {
             Type[] actualTypeArguments = ((ParameterizedType) type).getActualTypeArguments();
-            if (actualTypeArguments.length == 1 && actualTypeArguments[0] instanceof BaseViewModel) {
-                return initBindingViewModel(inflater, getLayoutId());
+            if (actualTypeArguments.length == 2) {
+                return initBindingViewModel(inflater, i);
+            }
+            if (actualTypeArguments.length == 1 && actualTypeArguments[0] instanceof ViewDataBinding) {
+                return initBindingView(inflater, getLayoutId());
             }
         }
         return inflater.inflate(i, null, false);
     }
 
+    //初始化要绑定的View
+    private View initBindingView(LayoutInflater inflater, int layoutId) {
+        dataBinding = DataBindingUtil.inflate(inflater, layoutId, null, false);
+        return dataBinding.getRoot();
+    }
+
     //初始化绑定ViewModel 加生命周期管理
     private View initBindingViewModel(LayoutInflater inflater, int layoutId) {
         viewModel = obtainViewModel(this);
+        dataBinding = DataBindingUtil.inflate(inflater, layoutId, null, false);
+        dataBinding.setVariable(getBRId(), viewModel);
+        View root = dataBinding.getRoot();
         getLifecycle().addObserver(viewModel);
-        return inflater.inflate(layoutId, null);
+        return root;
     }
 
     //根据泛型参数  初始化ViewModel
-    public VM obtainViewModel(Fragment fragment) {
+    public VM obtainViewModel(RxFragment fragment) {
         // Use a Factory to inject dependencies into the ViewModel
         Class modelClass;
 

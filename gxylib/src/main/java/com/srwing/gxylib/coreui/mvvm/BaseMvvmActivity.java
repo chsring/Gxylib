@@ -1,17 +1,14 @@
 package com.srwing.gxylib.coreui.mvvm;
 
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.srwing.gxylib.coreui.BaseTitleActivity;
-import com.srwing.gxylib.coreui.BaseViewModel;
+import com.srwing.gxylib.coreui.BaseActivity;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -22,8 +19,7 @@ import java.lang.reflect.Type;
  * Date: 2022/6/23
  * Email: 694177407@qq.com
  */
-public abstract class BaseMvvmActivity<VB extends ViewDataBinding, VM extends BaseViewModel> extends BaseTitleActivity implements IMvvmActivity {
-
+public abstract class BaseMvvmActivity<VB extends ViewDataBinding, VM extends BaseViewModel> extends BaseActivity implements IMvvmActivity {
 
     protected VB dataBinding;
     protected VM viewModel;

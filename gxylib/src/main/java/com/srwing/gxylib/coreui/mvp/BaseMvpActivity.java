@@ -6,7 +6,7 @@ import android.view.View;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 
-import com.srwing.gxylib.coreui.BaseTitleActivity;
+import com.srwing.gxylib.coreui.BaseActivity;
 import com.srwing.gxylib.coreui.TypeUtils;
 import com.trello.rxlifecycle4.LifecycleTransformer;
 import com.trello.rxlifecycle4.android.ActivityEvent;
@@ -18,7 +18,7 @@ import com.trello.rxlifecycle4.android.ActivityEvent;
  * Email: 694177407@qq.com
  */
 public abstract class BaseMvpActivity<VB extends ViewDataBinding, P extends BasePresenter, M extends BaseModel>
-        extends BaseTitleActivity implements IBaseView {
+        extends BaseActivity implements IBaseView {
 
     public P mPresenter;
     protected VB dataBinding;
