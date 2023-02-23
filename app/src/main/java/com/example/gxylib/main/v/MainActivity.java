@@ -1,9 +1,6 @@
 package com.example.gxylib.main.v;
 
-import android.content.Intent;
-import android.view.Gravity;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.appcompat.widget.AppCompatTextView;
 
@@ -11,18 +8,11 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.example.gxylib.R;
 import com.example.gxylib.databinding.ActivityMainBinding;
 import com.example.gxylib.main.vm.MainViewModel;
-import com.srwing.b_applib.launch.GetGxyLauncher;
 import com.srwing.gxylib.coreui.mvvm.BaseMvvmActivity;
-import com.srwing.gxylib.coreui.view.badgevview.BadgeView;
-import com.srwing.gxylib.timer.CutDownTimer;
 import com.srwing.t_network.GxyNet;
 import com.srwing.t_network.interceptors.LogInterceptor;
-import com.srwing.t_network.utils.GxyLogger;
 
-import java.util.HashMap;
-import java.util.Map;
-
-public class MainActivity extends BaseMvvmActivity<ActivityMainBinding, MainViewModel> {
+public class MainActivity extends BaseMvvmActivity<ActivityMainBinding, MainViewModel> implements View.OnClickListener{
     @Override
     protected int getContentView() {
         return R.layout.activity_main;
@@ -45,9 +35,6 @@ public class MainActivity extends BaseMvvmActivity<ActivityMainBinding, MainView
         super.initViewData();
         setTitle("首页");
 
-        new BadgeView(this).bindTarget(dataBinding.line1).setBadgeNumber(6).setBadgeGravity(Gravity.TOP | Gravity.END);
-//                .setGravityOffset(-6,true);
-
 
         GxyNet.init(this).withApiHost("https://server6.19x19.com")
                 .withInterceptor(new LogInterceptor()).withLoggerAdapter() //设置LogAdapter
@@ -62,55 +49,28 @@ public class MainActivity extends BaseMvvmActivity<ActivityMainBinding, MainView
         });
         viewModel.getMain();
 
-
-        CutDownTimer mSecondTimer = new CutDownTimer(this, 10000, 1000, 1000);
-//        mSecondTimer.setOnCountDownTimerListener(new OnCountDownTimerListener() {
-//            @Override
-//            public void onTick(long millisUntilFinished) {
-//                Log.e("TEST_TIMER", "onTick millisUntilFinished: " + millisUntilFinished);
-//            }
-//
-//            @Override
-//            public void onFinish() {
-//                Log.d("TEST_TIMER", "onFinish  ");
-//
-//            }
-//
-//            @Override
-//            public void onCancel() {
-//                Log.d("TEST_TIMER", "onCancel  ");
-//
-//            }
-//        });
-//        mSecondTimer.start();
-
-
-        GetGxyLauncher gxyLauncher = new GetGxyLauncher(this);
-
-        dataBinding.tvText.setText("开启2");
-        dataBinding.tvText.setOnClickListener(v -> {
-            Map<String, String> param = new HashMap<>();
-            param.put("data", "来自于MainActivity");
-            gxyLauncher.launch(MainActivity.this, TestActivity2.class, param, result -> {
-                if (result.getData() != null) {
-                    GxyLogger.i("Test-LAUNCHER", "code:" + result.getResultCode() + " ; data: " + result.getData().getStringExtra("data"));
-                }
-            });
-        });
-
-        dataBinding.tvText2.setText("开启3");
-        dataBinding.tvText2.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, TestActivity3.class);
-            intent.putExtra("data", "开启3");
-            gxyLauncher.launch(
-                    intent, result -> {
-                        if (result.getData() != null) {
-                            GxyLogger.i("Test-LAUNCHER", "code:" + result.getResultCode() + " ; data: " +
-                                    result.getData().getStringExtra("data"));
-                        }
-                    }
-            );
-        });
-
+        dataBinding.start.setOnClickListener(this);
+        dataBinding.pause.setOnClickListener(this);
+        dataBinding.stop.setOnClickListener(this);
     }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.start:
+
+                dataBinding.rpvv.start();
+//                dataBinding.rpv.start(20);
+                break;
+            case R.id.pause:
+//                dataBinding.rpv.pause();
+
+                dataBinding.rpvv.stop();
+                break;
+            case R.id.stop:
+                dataBinding.rpvv.reset();
+                break;
+        }
+    }
+
 }
