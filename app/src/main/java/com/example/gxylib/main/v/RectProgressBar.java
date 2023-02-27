@@ -163,7 +163,7 @@ public class RectProgressBar extends View {
 
         float count = weight * 2 + height * 2;
         speed = (count) / (second * 1000 / timesPerMillionSecond);
-        GxyLogger.d("test-Porgress", "count: " + count + "\nsecond:" + second + "\ntimesPerMillionSecond: " + timesPerMillionSecond + "\nspeed: " + speed);
+        GxyLogger.d("CutDownTimer", "count: " + count + "\nsecond:" + second + "\ntimesPerMillionSecond: " + timesPerMillionSecond + "\nspeed: " + speed);
 //d
         //左上角圆弧的
         rectLeftTop.left = left;
@@ -215,7 +215,7 @@ public class RectProgressBar extends View {
 
         path.reset();
         path.moveTo(left + weight / 2, top);
-        GxyLogger.e("test-Porgress", "currentDis- draw:" +
+        GxyLogger.e("CutDownTimer", "currentDis- draw:" +
                 (currentDistance - weight / 2 - thickness / 2));
         if (currentDistance < firstDistance) {
             path.lineTo(currentDistance, top);
@@ -276,7 +276,7 @@ public class RectProgressBar extends View {
             path.lineTo(left + (currentDistance - eighthDistance) + radius, top);
         }
         currentDistance += speed;
-        GxyLogger.i("test-Porgress", "-------------------------------");
+        GxyLogger.i("CutDownTimer", "-------------------------------");
         paint.setColor(color);
         canvas.drawPath(path, paint);
     }
@@ -307,13 +307,13 @@ public class RectProgressBar extends View {
                 @Override
                 public void onTick(long millisUntilFinished) {
                     invalidate();
-                    GxyLogger.e("test-Porgress", "currentDis- invalidate:" +
+                    GxyLogger.e("CutDownTimer", "currentDis- invalidate:" +
                             (currentDistance - weight / 2 - thickness / 2));
                 }
 
                 @Override
                 public void onFinish() {
-                    GxyLogger.i("test-Porgress", "currentDis:" +
+                    GxyLogger.i("CutDownTimer", "currentDis:" +
                             (currentDistance - weight / 2 - thickness / 2));
 
                 }

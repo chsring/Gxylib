@@ -11,6 +11,7 @@ import com.example.gxylib.main.vm.MainViewModel;
 import com.srwing.gxylib.coreui.mvvm.BaseMvvmActivity;
 import com.srwing.t_network.GxyNet;
 import com.srwing.t_network.interceptors.LogInterceptor;
+import com.srwing.t_network.utils.GxyLogger;
 
 public class MainActivity extends BaseMvvmActivity<ActivityMainBinding, MainViewModel> implements View.OnClickListener{
     @Override
@@ -52,6 +53,8 @@ public class MainActivity extends BaseMvvmActivity<ActivityMainBinding, MainView
         dataBinding.start.setOnClickListener(this);
         dataBinding.pause.setOnClickListener(this);
         dataBinding.stop.setOnClickListener(this);
+        dataBinding.rpvv.setSecond(30);
+        dataBinding.rpvv.setTimesPerMillionSecond(20);
     }
 
     @Override
@@ -59,15 +62,18 @@ public class MainActivity extends BaseMvvmActivity<ActivityMainBinding, MainView
         switch (v.getId()) {
             case R.id.start:
 
+                GxyLogger.v("CutDownTimer","----start-----");
                 dataBinding.rpvv.start();
 //                dataBinding.rpv.start(20);
                 break;
             case R.id.pause:
 //                dataBinding.rpv.pause();
-
+                GxyLogger.v("CutDownTimer","----stop-----");
                 dataBinding.rpvv.stop();
                 break;
             case R.id.stop:
+
+                GxyLogger.v("CutDownTimer","----reset-----");
                 dataBinding.rpvv.reset();
                 break;
         }
