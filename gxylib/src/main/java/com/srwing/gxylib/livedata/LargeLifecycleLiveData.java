@@ -4,6 +4,7 @@ import static androidx.lifecycle.Lifecycle.State.CREATED;
 import static androidx.lifecycle.Lifecycle.State.DESTROYED;
 
 import android.annotation.SuppressLint;
+import android.util.Log;
 
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
@@ -15,8 +16,6 @@ import androidx.lifecycle.LifecycleEventObserver;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
-
-import com.orhanobut.logger.Logger;
 
 import java.util.Iterator;
 import java.util.Map;
@@ -180,6 +179,25 @@ public class LargeLifecycleLiveData<T> {
         owner.getLifecycle().addObserver(wrapper);
     }
 
+    @MainThread
+    public void observe(@NonNull LifecycleOwner owner, Lifecycle.State state, @NonNull Observer<? super T> observer) {
+        assertMainThread("observe");
+        if (owner.getLifecycle().getCurrentState() == DESTROYED) {
+            // ignore
+            return;
+        }
+        LifecycleBoundObserver wrapper = new LifecycleBoundObserver(owner, observer, state);
+        ObserverWrapper existing = mObservers.putIfAbsent(observer, wrapper);
+        if (existing != null && !existing.isAttachedTo(owner)) {
+            throw new IllegalArgumentException("Cannot add the same observer"
+                    + " with different lifecycles");
+        }
+        if (existing != null) {
+            return;
+        }
+        owner.getLifecycle().addObserver(wrapper);
+    }
+
     /**
      * Adds the given observer to the observers list. This call is similar to
      * {@link LiveData#observe(LifecycleOwner, Observer)} with a LifecycleOwner, which
@@ -312,7 +330,7 @@ public class LargeLifecycleLiveData<T> {
      * up to date.
      */
     protected void onActive() {
-        Logger.i("livedata state", "onActive");
+        Log.i("livedata state", "onActive");
     }
 
     /**
@@ -325,7 +343,7 @@ public class LargeLifecycleLiveData<T> {
      * You can check if there are observers via {@link #hasObservers()}.
      */
     protected void onInactive() {
-        Logger.i("livedata state", "onInactive");
+        Log.i("livedata state", "onInactive");
     }
 
     /**
@@ -379,16 +397,23 @@ public class LargeLifecycleLiveData<T> {
     class LifecycleBoundObserver extends ObserverWrapper implements LifecycleEventObserver {
         @NonNull
         final LifecycleOwner mOwner;
+        Lifecycle.State state = CREATED;
 
         LifecycleBoundObserver(@NonNull LifecycleOwner owner, Observer<? super T> observer) {
             super(observer);
             mOwner = owner;
         }
 
+        LifecycleBoundObserver(@NonNull LifecycleOwner owner, Observer<? super T> observer, Lifecycle.State state) {
+            super(observer);
+            mOwner = owner;
+            this.state = state;
+        }
+
         @Override
         boolean shouldBeActive() {
             // isAtLeast 这个方法 是关键 CREATED ，修改此可以扩大活跃状态
-            return mOwner.getLifecycle().getCurrentState().isAtLeast(CREATED);
+            return mOwner.getLifecycle().getCurrentState().isAtLeast(state);
         }
 
         @Override
