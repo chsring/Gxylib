@@ -50,6 +50,7 @@ dependencies {
     implementation deps.support.recyclerview
     api deps.recyclerAdapter
 
+    api deps.tencent.mmkv
     api deps.smart_refresh.layout
     api deps.smart_refresh.header
     api deps.smart_refresh.footer
