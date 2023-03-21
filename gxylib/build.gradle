@@ -43,11 +43,11 @@ dependencies {
     api deps.trello.rxlifecycle
     api deps.support.constraint_layout
 
-    implementation deps.trello.rxlifecycle_components
-    implementation deps.trello.rxlifecycle_android
-    implementation deps.rxjava.rxjava
-    implementation deps.rxjava.rxandroid
-    implementation deps.support.recyclerview
+    api deps.trello.rxlifecycle_components
+    api deps.trello.rxlifecycle_android
+    api deps.rxjava.rxjava
+    api deps.rxjava.rxandroid
+    api deps.support.recyclerview
     api deps.recyclerAdapter
 
     api deps.tencent.mmkv
@@ -63,7 +63,7 @@ afterEvaluate {
                 from components.release
                 groupId = 'com.srwing'
                 artifactId = 'gxylib'
-                version = '1.4.4'
+                version = '1.4.5'
             }
         }
     }
