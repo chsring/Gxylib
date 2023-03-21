@@ -63,7 +63,7 @@ afterEvaluate {
                 from components.release
                 groupId = 'com.srwing'
                 artifactId = 'gxylib'
-                version = '1.4.3'
+                version = '1.4.4'
             }
         }
     }
