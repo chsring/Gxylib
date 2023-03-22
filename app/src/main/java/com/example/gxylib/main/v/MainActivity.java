@@ -1,13 +1,17 @@
 package com.example.gxylib.main.v;
 
+import android.content.Intent;
 import android.view.View;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
 import androidx.appcompat.widget.AppCompatTextView;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.example.gxylib.R;
 import com.example.gxylib.databinding.ActivityMainBinding;
 import com.example.gxylib.main.vm.MainViewModel;
+import com.srwing.b_applib.launch.JLauncher;
 import com.srwing.gxylib.coreui.mvvm.BaseMvvmActivity;
 import com.srwing.t_network.GxyNet;
 import com.srwing.t_network.interceptors.LogInterceptor;
@@ -55,6 +59,14 @@ public class MainActivity extends BaseMvvmActivity<ActivityMainBinding, MainView
         dataBinding.stop.setOnClickListener(this);
         dataBinding.rpvv.setSecond(30);
         dataBinding.rpvv.setTimesPerMillionSecond(20);
+
+        JLauncher jLauncher = new JLauncher(this);
+        jLauncher.launch(new Intent(MainActivity.this,TestActivity2.class), new ActivityResultCallback<ActivityResult>() {
+            @Override
+            public void onActivityResult(ActivityResult result) {
+
+            }
+        });
     }
 
     @Override

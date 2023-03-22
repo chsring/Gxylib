@@ -12,14 +12,14 @@ import androidx.activity.result.ActivityResultCaller
  * onCreate中直接初始化对象 initLauncher()
  * 使用：getLauncher()?.launch<Demo10Activity> { result -> .....}
  */
-class GxyLauncher : IGxyLauncher {
+class KtLauncher : IGxyLauncher {
 
-    private var safLauncher: GetGxyLauncher? = null
+    private var safLauncher: JLauncher? = null
 
     override fun <T : ActivityResultCaller> T.initLauncher() {
-        safLauncher = GetGxyLauncher(this)
+        safLauncher = JLauncher(this)
     }
 
-    override fun getLauncher(): GetGxyLauncher? = safLauncher
+    override fun getLauncher(): JLauncher? = safLauncher
 
 }

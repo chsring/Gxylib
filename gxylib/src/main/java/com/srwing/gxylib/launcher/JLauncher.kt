@@ -16,8 +16,9 @@ import java.io.Serializable
  * Created srwing
  * Date: 2023/2/9
  * Email: 694177407@qq.com
- * 用法：
-//            gxyLauncher.launch(
+ *
+ * 用法： JLauncher jLauncher = new JLauncher(this);
+//            jLauncher.launch(
 //                    intent, result -> {
 //                        if (result.getData() != null) {
 //                            GxyLogger.i("Test-LAUNCHER", "code:" + result.getResultCode() + " ; data: " +
@@ -25,10 +26,10 @@ import java.io.Serializable
 //                        }
 //                    }
 //            );
- 或者
+ 或者  JLauncher jLauncher = new JLauncher(this);
 //            Map<String, String> param = new HashMap<>();
 //            param.put("data", "来自于MainActivity");
-//            gxyLauncher.launch(MainActivity.this, TestActivity2.class, param, result -> {
+//            jLauncher.launch(MainActivity.this, TestActivity2.class, param, result -> {
 //                if (result.getData() != null) {
 //                    GxyLogger.i("Test-LAUNCHER", "code:" + result.getResultCode() + " ; data: " + result.getData().getStringExtra("data"));
 //                }
@@ -36,7 +37,7 @@ import java.io.Serializable
 
  *
  */
-class GetGxyLauncher(caller: ActivityResultCaller) : BaseResultLauncher<Intent, ActivityResult>(caller, ActivityResultContracts.StartActivityForResult()) {
+class JLauncher(caller: ActivityResultCaller) : BaseResultLauncher<Intent, ActivityResult>(caller, ActivityResultContracts.StartActivityForResult()) {
     /**
      *  传 context，
      *  Array 的key-value ： arrayOf("data" to "来自于页面2 的 123 ")

@@ -12,6 +12,6 @@ interface IGxyLauncher {
 
     fun <T : ActivityResultCaller> T.initLauncher()
 
-    fun getLauncher(): GetGxyLauncher?
+    fun getLauncher(): JLauncher?
 
 }

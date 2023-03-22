@@ -6,8 +6,8 @@ import androidx.appcompat.widget.AppCompatTextView
 import com.example.gxylib.R
 import com.example.gxylib.databinding.ActivityMainBinding
 import com.example.gxylib.main.base.BindingActivity
-import com.srwing.b_applib.launch.GxyLauncher
 import com.srwing.b_applib.launch.IGxyLauncher
+import com.srwing.b_applib.launch.KtLauncher
 import com.srwing.t_network.utils.GxyLogger
 
 /**
@@ -16,7 +16,7 @@ import com.srwing.t_network.utils.GxyLogger
  * Date: 2023/2/9
  * Email: 694177407@qq.com
  */
-class TestActivity2 : BindingActivity<ActivityMainBinding?>(), IGxyLauncher by GxyLauncher() {
+class TestActivity2 : BindingActivity<ActivityMainBinding?>(), IGxyLauncher by KtLauncher() {
     override fun getContentView(): Int {
         return R.layout.activity_main
     }
