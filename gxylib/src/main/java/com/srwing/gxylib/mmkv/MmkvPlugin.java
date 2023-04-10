@@ -3,9 +3,16 @@ package com.srwing.gxylib.mmkv;
 import android.content.Context;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
+
+import com.google.gson.Gson;
+import com.srwing.gxylib.GsonUtil;
 import com.tencent.mmkv.MMKV;
 import com.tencent.mmkv.MMKVLogLevel;
 
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -17,7 +24,6 @@ import java.util.Set;
  * Email: 694177407@qq.com
  */
 
-@SuppressWarnings("unused")
 public class MmkvPlugin {
     static List<String> deleteAbleKeys;
 
@@ -48,6 +54,23 @@ public class MmkvPlugin {
     private static MMKV get() {
         return MMKV.defaultMMKV();
     }
+
+
+    public static <V> void writeDeleteAble(String key, List<V> value) {
+        writeDeleteAble(key, GsonUtil.toJson(value));
+    }
+
+    //gson 不支持范型,如果强行用范型，list中的数据类型不是T,而是LinkedTreeMap，LinkedTreeMap是Gson库内部数据模型，所以中间加一层 ParameterizedTypeImpl
+    public static <T> List<T> readList(String key, Class<T> clazz) {
+        try {
+            Type type = new ParameterizedTypeImpl<T>(clazz);
+            String str = readString(key, "");
+            return new Gson().fromJson(str, type);
+        } catch (Exception e) {
+            return new ArrayList<>();
+        }
+    }
+
 
     //写入的 key-value 可以删除
     public static <V> void writeDeleteAble(String key, V value) {
@@ -116,7 +139,7 @@ public class MmkvPlugin {
         return get().decodeParcelable(key, tClass);
     }
 
-    public static Set<String> decodeStringSet(String key, Set<String> defaultValue) {
+    public static Set<String> readStringSet(String key, Set<String> defaultValue) {
         return get().decodeStringSet(key, defaultValue);
     }
 
@@ -135,6 +158,31 @@ public class MmkvPlugin {
     public static void removeValueForKeys() {
         get().removeValuesForKeys(deleteAbleKeys.toArray(new String[0]));
         deleteAbleKeys.clear();
+    }
+
+    public static class ParameterizedTypeImpl<T> implements ParameterizedType {
+        Class<T> clazz;
+
+        public ParameterizedTypeImpl(Class<T> clz) {
+            clazz = clz;
+        }
+
+        @NonNull
+        @Override
+        public Type[] getActualTypeArguments() {
+            return new Type[]{clazz};
+        }
+
+        @NonNull
+        @Override
+        public Type getRawType() {
+            return List.class;
+        }
+
+        @Override
+        public Type getOwnerType() {
+            return null;
+        }
     }
 
 }
